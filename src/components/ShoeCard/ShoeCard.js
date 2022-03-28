@@ -37,10 +37,13 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt='' src={imageSrc} />
+          {variant === 'on-sale' && <SaleBanner>Sale</SaleBanner>}
+          {variant === 'new-release' && <JustReleasedBanner>Just Released!</JustReleasedBanner>}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
           <Price>{formatPrice(price)}</Price>
         </Row>
         <Row>
@@ -56,18 +59,46 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  border-radius: 16px;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
+const SaleBanner = styled.span`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  background-color: ${COLORS.primary};
+  padding: 9px;
+  color: ${COLORS.white};
+  font-weight: ${WEIGHTS.medium};
+  border-radius: 2px;
+`;
+
+const JustReleasedBanner = styled.span`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  background-color: ${COLORS.secondary};
+  padding: 9px;
+  color: ${COLORS.white};
+  font-weight: ${WEIGHTS.medium};
+  border-radius: 2px;
+`;
+
 const Image = styled.img`
   width: 100%;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Row = styled.div`
+  position: relative;
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -75,15 +106,24 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
-
-const ColorInfo = styled.p`
-  color: ${COLORS.gray[700]};
+const Price = styled.span`
+  font-weight: ${WEIGHTS.medium};
 `;
 
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+  position: absolute;
+  right: 0;
+  top: 26px;
+
+  & + ${Price} {
+    text-decoration: line-through;
+  }
+`;
+
+const ColorInfo = styled.p`
+  color: ${COLORS.gray[700]};
 `;
 
 export default ShoeCard;
