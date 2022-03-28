@@ -13,6 +13,7 @@ const ShoeCard = ({
   salePrice,
   releaseDate,
   numOfColors,
+  ...delegated
 }) => {
   // There are 3 variants possible, based on the props:
   //   - new-release
@@ -32,10 +33,10 @@ const ShoeCard = ({
       : 'default'
 
   return (
-    <Link href={`/shoe/${slug}`}>
+    <Link href={`/shoe/${slug}`} {...delegated}>
       <Wrapper>
         <ImageWrapper>
-          <Image alt="" src={imageSrc} />
+          <Image alt='' src={imageSrc} />
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -61,7 +62,9 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
